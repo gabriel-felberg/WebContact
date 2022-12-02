@@ -14,6 +14,9 @@ class Telefone{
     @ManyToMany(() =>User, user => user.telefone)
     telefoneId:User[]
 
+    @ManyToMany(() =>Contact, contact => contact.telefoneContact)
+    telefoneContactId:Contact[]
+
 }
 
 export {Telefone}

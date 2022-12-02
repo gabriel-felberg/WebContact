@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import {
   Column,
   CreateDateColumn,
@@ -20,23 +21,29 @@ class User {
   @Column()
   name: string;
 
-  @ManyToMany(() => Email, email => email.emailId, {
-    cascade: true, eager:true
-})
+  @ManyToMany(() => Email, (email) => email.emailId, {
+    cascade: true,
+    eager: true,
+  })
   @JoinTable()
   email: Email[];
 
-  @ManyToMany(() => Telefone, telefone => telefone.telefoneId, {
-    cascade: true, eager:true
-})
+  @Column()
+  @Exclude()
+  password: string;
+
+  @ManyToMany(() => Telefone, (telefone) => telefone.telefoneId, {
+    cascade: true,
+    eager: true,
+  })
   @JoinTable()
   telefone: Telefone[];
 
   @CreateDateColumn()
   date: Date;
 
-  // @OneToMany(()=>Contact, (user_id)=>user_id.user_id)
-  // list_contacts:Contact
+  @OneToMany(() => Contact, (user_id) => user_id.user_id)
+  list_contacts: Contact[];
 }
 
 // @Entity("users")

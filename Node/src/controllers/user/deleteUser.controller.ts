@@ -5,5 +5,5 @@ export const deleteUserController = async(req: Request, res: Response) => {
   const {id}= req.params
   await deleteUserServer({id})
   console.log(id);
-  return res.status(203).send()
+  return res.status(204).send()
 };

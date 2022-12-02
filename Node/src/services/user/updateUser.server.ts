@@ -7,7 +7,7 @@ import { AppError } from "../../errors/app.error";
 import { IUserId, IUserRequest } from "../../interfaces/user";
 
 export const updateUserServer = async (
-  { name, email, telefone }: IUserRequest,
+  { name, email, telefone, password }: IUserRequest,
   { id }: IUserId
 ) => {
   const userRepository = AppDataSource.getRepository(User);
@@ -56,6 +56,8 @@ export const updateUserServer = async (
       listEmail.push(await emailRepository.save({ email: email[i] }))
     }
   }
+  console.log();
+  
 
   const listTelefone = []
   if (telefone) {
@@ -82,6 +84,6 @@ export const updateUserServer = async (
   // await userRepository.update(id, { name });
 
   // return { id, name, email, telefone };
-  const user = await userRepository.save({ name, telefone:listTelefone, email:listEmail });
+  const user = await userRepository.save({ name, telefone:listTelefone, email:listEmail, password });
   return {user}
 };
