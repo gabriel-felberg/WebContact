@@ -15,7 +15,7 @@ import { Telefone } from "./telefone.entity";
 
 @Entity("users")
 class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

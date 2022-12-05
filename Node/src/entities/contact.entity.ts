@@ -13,7 +13,7 @@ import { User } from "./user.entity";
 
 @Entity("contacts")
 class Contact {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

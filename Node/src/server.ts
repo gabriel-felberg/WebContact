@@ -3,7 +3,7 @@ import AppDataSource from "./data-source";
 
 
 const init = async () => {
-  const PORT = process.env.PORT || 3001;
+  const PORT = process.env.PORT || 3002;
   await AppDataSource.initialize();
   app.listen(PORT, () => {
     console.log(`App is running!, ${PORT}`);

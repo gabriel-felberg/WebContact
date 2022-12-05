@@ -45,7 +45,7 @@ export const loginService = async ({ email, password }: IUserLogin) => {
       expiresIn: "2h",
     }
   );
-  console.log(token);
+  console.log({token, id:userExists.id});
   
 
   return token;

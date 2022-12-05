@@ -5,7 +5,7 @@ import { User } from "./user.entity";
 @Entity("Telefones")
 class Telefone{
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id:string
 
     @Column()
