@@ -13,27 +13,21 @@ import { User } from "./user.entity";
 
 @Entity("contacts")
 class Contact {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
   name: string;
 
-  @ManyToMany(() => Email, (email) => email.emailContactId, {
-    cascade: true,
-    eager: true,
-  })
-  @JoinTable()
+  @OneToMany(() => Email, (email) => email.emailContact, { eager: true })
   emailContact: Email[];
 
-  @ManyToMany(() => Telefone, (telefone) => telefone.telefoneContactId, {
-    cascade: true,
+  @OneToMany(() => Telefone, (telefone) => telefone.telefoneContact, {
     eager: true,
   })
-  @JoinTable()
   telefoneContact: Telefone[];
 
-  @ManyToOne(() => User, { eager: true, onDelete: "SET NULL" })
+  @ManyToOne(() => User, { onDelete: "CASCADE" })
   user_id: User;
 }
 

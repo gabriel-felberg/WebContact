@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Contact } from "./contact.entity";
@@ -9,17 +10,17 @@ import { User } from "./user.entity";
 
 @Entity("emails")
 class Email {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
   email: string;
 
-  @ManyToMany(() =>User, user => user.email)
-  emailId: User[];
+  @ManyToOne(() => User, { onDelete: "CASCADE" })
+  emailId: User;
 
-  @ManyToMany(() =>Contact, contact => contact.emailContact)
-  emailContactId: Contact[];
+  @ManyToOne(() => Contact, { onDelete: "CASCADE" })
+  emailContact: Contact;
 }
 
 export { Email };

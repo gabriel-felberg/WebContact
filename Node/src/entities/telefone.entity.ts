@@ -5,17 +5,17 @@ import { User } from "./user.entity";
 @Entity("Telefones")
 class Telefone{
 
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn("uuid")
     id:string
 
     @Column()
     telefone:string
 
-    @ManyToMany(() =>User, user => user.telefone)
-    telefoneId:User[]
+    @ManyToOne(() =>User, user => user.telefone, {onDelete:"CASCADE"})
+    telefoneId:User
 
-    @ManyToMany(() =>Contact, contact => contact.telefoneContact)
-    telefoneContactId:Contact[]
+    @ManyToOne(() =>Contact, contact => contact.telefoneContact, {onDelete:"CASCADE"})
+    telefoneContact:Contact
 
 }
 

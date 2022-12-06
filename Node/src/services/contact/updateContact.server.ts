@@ -1,88 +1,41 @@
 import AppDataSource from "../../data-source";
+import { Contact } from "../../entities/contact.entity";
 import { Email } from "../../entities/email.entity";
 import { Telefone } from "../../entities/telefone.entity";
-import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/app.error";
-import { IUserId, IUserRequest } from "../../interfaces/user";
+import { IContactId, IUserContact } from "../../interfaces/contacts";
+
 
 export const updateContactServer = async (
-  { name, email, telefone, password }: IUserRequest,
-  { id }: IUserId
+  { name, email, telefone }: IUserContact,
+  { id }: IContactId
 ) => {
-  const userRepository = AppDataSource.getRepository(User);
+  const userRepository = AppDataSource.getRepository(Contact);
   const emailRepository = AppDataSource.getRepository(Email);
   const telefoneRepository = AppDataSource.getRepository(Telefone);
 
-  const UpdateUser = await userRepository.findOneBy({ id });
+  const UpdateContact = await userRepository.findOneBy({ id });
 
-  if (!UpdateUser) {
+  if (!UpdateContact) {
     throw new AppError("user not found", 404);
   }
-
-  // const atual = await userRepository
-  //   .createQueryBuilder()
-  //   .relation(User, "email")
-  //   .of(id)
-  //   .loadMany();
-
-  // console.log(atual);
-  // console.log(atual);
-  // console.log(atual);
-  // console.log(atual);
-
-  // await userRepository
-  //   .createQueryBuilder()
-  //   .relation(User, "email")
-  //   .of(email)
-  //   .addAndRemove(email, atual);
-
-  // await userRepository
-  //   .createQueryBuilder()
-  //   .update()
-  //   .set({
-  //     email: email,
-  //     telefone: telefone,
-  //     name: name,
-  //   })
-  //   .where("id = :id", { id: id })
-  //   .execute();
-  const listEmail = []
-  if (email) {
-    for (let i = 0; i < UpdateUser.email.length; i++) {
-      await userRepository.delete(UpdateUser.email[i].id)
-    }
-    for (let i = 0; i < email.length; i++) {
-      listEmail.push(await emailRepository.save({ email: email[i] }))
-    }
-  }
-  console.log();
+  console.log(UpdateContact);
+  console.log(UpdateContact.emailContact[0], { email: email[0] });
   
-
-  const listTelefone = []
-  if (telefone) {
-    for (let i = 0; i < UpdateUser.telefone.length; i++) {
-      await userRepository.delete(UpdateUser.telefone[i].id)
-    }
-    for (let i = 0; i < telefone.length; i++) {
-      listTelefone.push(await telefoneRepository.save({ telefone: telefone[i] }))
-    }
+  
+  for (let i = 0; i < email.length; i++) {
+    await emailRepository.update(UpdateContact.emailContact[i], { email: email[i] });
   }
-  // for (let i = 0; i < email.length; i++) {
-  //   await emailRepository.update(UpdateUser.email[i], { email: email[i] });
-  // }
 
-  // for (let i = 0; i < telefone.length; i++) {
-  //   await telefoneRepository.update(UpdateUser.telefone[i], {
-  //     telefone: telefone[i],
-  //   });
-  // }
-  // console.log(UpdateUser.telefone, {
-  //   telefone: telefone,
-  // });
+  for (let i = 0; i < telefone.length; i++) {
+    await telefoneRepository.update(UpdateContact.telefoneContact[i], {
+      telefone: telefone[i],
+    });
+  }
+  console.log(UpdateContact);
+  await userRepository.update(id, { name });
+  console.log(UpdateContact);
+  console.log({ id, name, emailContact:email, telefoneContact:telefone, user:UpdateContact.user_id });
+  return { id, name, emailContact:email, telefoneContact:telefone, user:UpdateContact.user_id };
 
-  // await userRepository.update(id, { name });
-
-  // return { id, name, email, telefone };
-  const user = await userRepository.save({ name, telefone:listTelefone, email:listEmail, password });
-  return {user}
 };

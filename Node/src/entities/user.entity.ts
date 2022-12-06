@@ -15,58 +15,31 @@ import { Telefone } from "./telefone.entity";
 
 @Entity("users")
 class User {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
   name: string;
 
-  @ManyToMany(() => Email, (email) => email.emailId, {
-    cascade: true,
-    eager: true,
-  })
-  @JoinTable()
-  email: Email[];
+  @CreateDateColumn()
+  date: Date;
 
   @Column()
   @Exclude()
   password: string;
 
-  @ManyToMany(() => Telefone, (telefone) => telefone.telefoneId, {
-    cascade: true,
+  @OneToMany(() => Email, (email) => email.emailId, {
     eager: true,
   })
-  @JoinTable()
+  email: Email[];
+
+  @OneToMany(() => Telefone, (telefone) => telefone.telefoneId, {
+    eager: true,
+  })
   telefone: Telefone[];
 
-  @CreateDateColumn()
-  date: Date;
-
-  @OneToMany(() => Contact, (user_id) => user_id.user_id)
+  @OneToMany(() => Contact, (user_id) => user_id.user_id, { eager: true })
   list_contacts: Contact[];
 }
-
-// @Entity("users")
-// class User{
-
-//     @PrimaryGeneratedColumn("uuid")
-//     id:string
-
-//     @Column()
-//     name:string
-
-//     @Column()
-//     email:string[]
-
-//     @Column()
-//     telefone:string[]
-
-//     @CreateDateColumn()
-//     date:Date
-
-//     @ManyToOne(()=>Contact, {eager:true})
-//     list_contacts:Contact
-
-// }
 
 export { User };
