@@ -1,11 +1,13 @@
-import { LoginAndRegister } from "./pages/loginAndRegister";
-
+import { ToastContainer } from "react-toastify";
+import { Start } from "./routes";
+import "react-toastify/dist/ReactToastify.min.css";
 
 function App() {
   return (
-
-    <LoginAndRegister/>
-
+    <section>
+      <Start />
+      <ToastContainer />
+    </section>
   );
 }
 
