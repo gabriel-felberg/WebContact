@@ -22,7 +22,7 @@ export const Login = ({ setForm }) => {
     setForm({ ...formLogin, type: "Login" });
   }
   return (
-    <section className=" clsss flex flex-col items-center space-y-5">
+    <section className=" clsss ">
       <h3 className="font-bold text-2xl">Login</h3>
       <form
         className="flex flex-col space-y-5 items-center"

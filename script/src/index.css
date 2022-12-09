@@ -18,7 +18,14 @@
     border-radius: 15px;
 
   }
+  .error{
+    @apply pl-2 bg-red-500 border-2 rounded-lg 
+  }
   .clsss {
-    @apply bg-blue-500
+    @apply  flex flex-col items-center space-y-5
+  }
+  .ba{
+    background-color: aqua;
+    
   }
 }
