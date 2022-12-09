@@ -26,7 +26,6 @@ export const Register = ({ setForm }) => {
     resolver: yupResolver(schemaForm),
   });
   function onHandleSubmit(formRegister) {
-    console.log(setForm);
     setForm({
       name: formRegister.name,
       telefone: Transform(formRegister.telefone),
@@ -43,32 +42,32 @@ export const Register = ({ setForm }) => {
         onSubmit={handleSubmit(onHandleSubmit)}
       >
         <div className="flex flex-col">
-          <label htmlFor="Nome">Nome Completo</label>
+          <label htmlFor="Nome" className="text-black">Nome Completo</label>
           <input id="Nome" {...register("name")} />
           {errors.name && <span className="error">{errors.name.message}</span>}
         </div>
         <div className="flex flex-col">
-          <label htmlFor="Email">Email</label>
+          <label htmlFor="Email" className="text-black">Email</label>
           <input id="Email" {...register("email")} />
           {errors.email && (
             <span className="error">{errors.email.message}</span>
           )}
         </div>
         <div className="flex flex-col">
-          <label htmlFor="Telefones">Telefone</label>
+          <label htmlFor="Telefones" className="text-black">Telefone</label>
           <input id="Telefones" {...register("telefone")} />
           {errors.telefone && (
             <span className="error">{errors.telefone.message}</span>
           )}
         </div>
         <div className="flex flex-col">
-          <label htmlFor="Password">Password</label>
+          <label htmlFor="Password" className="text-black">Password</label>
           <input id="Password" {...register("password")} />
           {errors.password && (
             <span className="error">{errors.password.message}</span>
           )}
         </div>
-        <button className="w-32 items-center bg-red-400">Registro</button>
+        <button className="w-44 bg-red-300 hover:bg-red-400 text-black p-1 rounded-lg font-bold border border-black">Registro</button>
       </form>{" "}
     </section>
   );

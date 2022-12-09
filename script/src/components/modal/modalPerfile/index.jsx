@@ -40,19 +40,18 @@ export const ModalPerfile = ({ OpenAndCloseModal, AxiosRender, type, user }) => 
     resolver: yupResolver(schemaForm),
   });
   function onHandleSubmit(data) {
-    console.log(user);
     data = {
       name: data.name,
       email: [data.email1, data.email2],
       telefone: [data.telephone1, data.telephone2],
       password: data.password
     };
-    console.log(localStorage.getItem("@userId"));
     AxiosRender({
       method: "patch",
       url: `http://localhost:3001/user/${JSON.parse(localStorage.getItem("@userId"))}`,
       data,
     });
+    OpenAndCloseModal({})
   }
   function DeleteUser() {
     const navigate = useNavigate()
@@ -145,7 +144,7 @@ export const ModalPerfile = ({ OpenAndCloseModal, AxiosRender, type, user }) => 
             Editar
           </button>
           <button
-            onClick={DeleteUser()}
+            onClick={DeleteUser}
             className="font-bold rounded-br-2xl bg-red-400 p-2 w-6/12 hover:bg-red-500"
           >
             Deletar Conta

@@ -1,8 +1,6 @@
-import Home from "../pages/home";
-import { LoginAndRegister } from "../pages/loginAndRegister";
+import Home from "../pages/dashboard";
+import { LoginAndRegister } from "../pages/home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-
 
 export const Start = () => {
   return (
@@ -11,7 +9,6 @@ export const Start = () => {
         <Route path="/" element={<LoginAndRegister />} />
         <Route path="/home" element={<Home />} />
       </Routes>
-      
     </Router>
   );
 };

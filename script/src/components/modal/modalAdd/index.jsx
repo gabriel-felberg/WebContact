@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-export const ModalAdd = ({ OpenAndCloseModal, AxiosRender, type }) => {
+export const ModalAdd = ({ OpenAndCloseModal, AxiosRender, setType }) => {
   const schemaForm = yup.object().shape({
     name: yup
       .string()
@@ -41,7 +41,6 @@ export const ModalAdd = ({ OpenAndCloseModal, AxiosRender, type }) => {
     resolver: yupResolver(schemaForm),
   });
   function onHandleSubmit(data) {
-    console.log(data);
     data = {
       name: data.name,
       email: [data.email1, data.email2],
@@ -53,6 +52,8 @@ export const ModalAdd = ({ OpenAndCloseModal, AxiosRender, type }) => {
       url: `http://localhost:3001/contact/`,
       data,
     });
+
+    OpenAndCloseModal({});
   }
 
   return (

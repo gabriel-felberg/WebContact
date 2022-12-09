@@ -3,35 +3,29 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-export const ModalEdit = ({ OpenAndCloseModal, AxiosRender, type }) => {
+export const ModalEdit = ({ OpenAndCloseModal, AxiosRender, type, setType }) => {
   const schemaForm = yup.object().shape({
     name: yup
       .string()
-      .min(15, "Ensira seu nome completo")
-      .max(30, "Somente dois sobrenomes")
-      .required("Digita um nome"),
+      .max(30, "Somente dois sobrenomes"),
 
     email1: yup
       .string()
       .max(60, "Ensira um email menor")
-      .required("Digite seu email")
       .email("Digite um email válido"),
     email2: yup
       .string()
       .max(60, "Ensira um email menor")
-      .required("Digite seu segundo email")
       .email("Digite um email válido"),
     telephone1: yup
       .string()
-      .min(9, "Ensira um telefone maior")
-      .max(14, "Ensira um telefone menor")
-      .required("Digite seu telefone"),
+      .max(14, "Ensira um telefone menor"),
+      
 
     telephone2: yup
       .string()
-      .min(9, "Ensira um telefone maior")
-      .max(14, "Ensira um telefone menor")
-      .required("Digite seu segundo telefone"),
+      .max(14, "Ensira um telefone menor"),
+      
   });
   const {
     register,
@@ -41,18 +35,20 @@ export const ModalEdit = ({ OpenAndCloseModal, AxiosRender, type }) => {
     resolver: yupResolver(schemaForm),
   });
   function onHandleSubmit(data) {
-    console.log(data);
     data = {
       name: data.name,
       email: [data.email1, data.email2],
       telefone: [data.telephone1, data.telephone2],
     };
 
-    AxiosRender({
+    const response = AxiosRender({
       method: "patch",
       url: `http://localhost:3001/contact/${type.id}`,
       data,
     });
+    if (!response.response.data.message){
+      OpenAndCloseModal({})
+    }
   }
 
   return (
