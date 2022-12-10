@@ -23,26 +23,32 @@ export const Login = ({ setForm }) => {
   }
   return (
     <section className="flex flex-col items-center space-y-5">
-      <h3 className="font-bold text-2xl">Login</h3>
+      <h3 className="font-bold text-3xl">Login</h3>
       <form
         className="flex flex-col space-y-5 items-center"
         onSubmit={handleSubmit(onHandleSubmit)}
       >
         <div className="flex flex-col">
-          <label htmlFor="Email" className="text-black">Email</label>
-          <input id="Email" {...register("email")} />
+          <label htmlFor="Email" className="text-lg">
+            Email
+          </label>
+          <input className="input" id="Email" {...register("email")} />
           {errors.email && (
             <span className="error">{errors.email.message}</span>
           )}
         </div>
         <div className="flex flex-col">
-          <label htmlFor="Password" className="text-black">Password</label>
-          <input id="Password" {...register("password")} />
+          <label htmlFor="Password" className="text-lg">
+            Password
+          </label>
+          <input className="input" id="Password" {...register("password")} />
           {errors.password && (
             <span className="error">{errors.password.message}</span>
           )}
         </div>
-          <button className="w-32 bg-red-300 hover:bg-red-400 text-black p-1 rounded-lg font-bold border border-black">Login</button>
+        <button className="w-44 bg-blue-400 hover:bg-blue-500 text-black p-1 rounded-lg font-bold border border-black">
+          Login
+        </button>
       </form>{" "}
     </section>
   );

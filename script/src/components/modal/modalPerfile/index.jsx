@@ -51,16 +51,23 @@ export const ModalPerfile = ({ OpenAndCloseModal, AxiosRender, type, user }) => 
       url: `http://localhost:3001/user/${JSON.parse(localStorage.getItem("@userId"))}`,
       data,
     });
-    OpenAndCloseModal({})
+    OpenAndCloseModal()
   }
   function DeleteUser() {
     const navigate = useNavigate()
     localStorage.removeItem("@token")
     localStorage.removeItem("@userId")
-    AxiosRender({
+    const response = AxiosRender({
       method: "delete",
       url: `http://localhost:3001/user/${JSON.parse(localStorage.getItem("@userId"))}`,
     })
+    if (response === undefined) {
+      return;
+    } else if (typeof response === "string") {
+      return;
+    } else {
+      OpenAndCloseModal();
+    }
     navigate("/")
   }
   return (

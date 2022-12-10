@@ -3,11 +3,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-export const ModalEdit = ({ OpenAndCloseModal, AxiosRender, type, setType }) => {
+export const ModalEdit = ({
+  OpenAndCloseModal,
+  AxiosRender,
+  type,
+  setType,
+}) => {
   const schemaForm = yup.object().shape({
-    name: yup
-      .string()
-      .max(30, "Somente dois sobrenomes"),
+    name: yup.string().max(30, "Somente dois sobrenomes"),
 
     email1: yup
       .string()
@@ -17,15 +20,9 @@ export const ModalEdit = ({ OpenAndCloseModal, AxiosRender, type, setType }) => 
       .string()
       .max(60, "Ensira um email menor")
       .email("Digite um email válido"),
-    telephone1: yup
-      .string()
-      .max(14, "Ensira um telefone menor"),
-      
+    telephone1: yup.string().max(14, "Ensira um telefone menor"),
 
-    telephone2: yup
-      .string()
-      .max(14, "Ensira um telefone menor"),
-      
+    telephone2: yup.string().max(14, "Ensira um telefone menor"),
   });
   const {
     register,
@@ -46,8 +43,10 @@ export const ModalEdit = ({ OpenAndCloseModal, AxiosRender, type, setType }) => 
       url: `http://localhost:3001/contact/${type.id}`,
       data,
     });
-    if (!response.response.data.message){
-      OpenAndCloseModal({})
+    console.log(response );
+    console.log(typeof response)
+    if (response !== undefined || typeof response !== String ) {
+      OpenAndCloseModal();
     }
   }
 

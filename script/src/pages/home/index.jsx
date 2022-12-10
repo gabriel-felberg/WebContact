@@ -57,25 +57,41 @@ export const LoginAndRegister = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
   return (
-    <section className="flex justify-end  h-screen bg-red-400">
-      <div className="flex flex-row items-center justify-center  text-white bg-orange-400 w-5/12">
-        { home ? (
-          <section className="flex flex-col justify-around h-96">
-            <Login setForm={setForm} />
-            <div className="flex flex-col mt-32">
-              <h3 className="text-lg ">Não possui conta?</h3>
-              <button onClick={()=>setHome(!home)} className="bg-red-300 hover:bg-red-400 text-black p-1 rounded-lg font-bold border border-black ">Cadastre-se</button>
-            </div>
-          </section>
-        ) : (
-          <section className="flex flex-col justify-around h-96">
-            <Register setForm={setForm} />
-            <div className="flex flex-col mt-5">
-              <h3 className="text-lg ">Já possui conta?</h3>
-              <button onClick={()=>setHome(!home)} className={"bg-red-300 hover:bg-red-400 text-black p-1 rounded-lg font-bold border border-black"}>Login</button>
-            </div>
-          </section>
-        )}
+    <section className="flex justify-end  h-screen ">
+      <div className="md:image bg-no-repeat bg-cover  md:w-7/12" />
+      <div className="flex flex-col items-center justify-center gradient text-white bg-blue-700 w-full md:w-5/12 border-black border-4">
+        <h1 className="text-4xl font-bold">Web Contact</h1>
+        <div className="flex flex-col justify-center h-4/6 ">
+          {home ? (
+            <section className="flex flex-col justify-around h-96">
+              <Login setForm={setForm}/>
+              <div className="flex flex-col mt-32">
+                <h3 className="text-lg ">Não possui conta?</h3>
+                <button
+                  onClick={() => setHome(!home)}
+                  className="bg-blue-400 hover:bg-blue-500 text-black p-1 rounded-lg font-bold border border-black "
+                >
+                  Cadastre-se
+                </button>
+              </div>
+            </section>
+          ) : (
+            <section className="flex flex-col justify-around h-96">
+              <Register setForm={setForm} />
+              <div className="flex flex-col mt-5">
+                <h3 className="text-lg ">Já possui conta?</h3>
+                <button
+                  onClick={() => setHome(!home)}
+                  className={
+                    "bg-blue-300 hover:bg-blue-400 text-black p-1 rounded-lg font-bold border border-black"
+                  }
+                >
+                  Login
+                </button>
+              </div>
+            </section>
+          )}
+        </div>
       </div>
     </section>
   );

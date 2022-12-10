@@ -2,12 +2,12 @@ import React from "react";
 
 export const Card = ({ data, OpenAndCloseModal, DeleteContact }) => {
   return (
-    <div className="flex flex-col text-center justify-between rounded-2xl text-white bg-gray-800 h-48 w-96 border-black border-2">
+    <div className="flex flex-col text-center justify-between rounded-2xl text-white bg-gray-800 h-48  border-black border-2">
       <h3 className="flex justify-center items-center h-10 bg-violet-900 rounded-t-2xl border-black border-b-2">
         <b>{data.name}</b>
       </h3>
       <div className="flex p-3 ">
-        <div className="w-6/12">
+        <div className="w-40">
           <h3>
             <b>Emails</b>
           </h3>
@@ -15,7 +15,7 @@ export const Card = ({ data, OpenAndCloseModal, DeleteContact }) => {
             <p>{e.email}</p>
           ))}
         </div>
-        <div className="w-6/12">
+        <div className="w-40">
           <h3>
             <b>Telefones</b>
           </h3>

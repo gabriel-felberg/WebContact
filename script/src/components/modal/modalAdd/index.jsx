@@ -47,13 +47,18 @@ export const ModalAdd = ({ OpenAndCloseModal, AxiosRender, setType }) => {
       telefone: [data.telephone1, data.telephone2],
     };
 
-    AxiosRender({
+    const response = AxiosRender({
       method: "POST",
       url: `http://localhost:3001/contact/`,
       data,
     });
-
-    OpenAndCloseModal({});
+    if (response === undefined) {
+      return;
+    } else if (typeof response === "string") {
+      return;
+    } else {
+      OpenAndCloseModal();
+    }
   }
 
   return (

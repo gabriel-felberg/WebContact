@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { CounterContext } from "../../../Providers/counter";
 
 export const Register = ({ setForm }) => {
-  const {Transform} = useContext(CounterContext)
+  const { Transform } = useContext(CounterContext);
   const schemaForm = yup.object().shape({
     name: yup
       .string()
@@ -15,7 +15,7 @@ export const Register = ({ setForm }) => {
     telefone: yup.string().required("Digite seus telefones"),
     password: yup
       .string()
-      .min(6, "A senha deve ter mais que 6 caracteres")
+      .min(6, "A senha deve ser maior")
       .required("Digite sua senha"),
   });
   const {
@@ -35,39 +35,49 @@ export const Register = ({ setForm }) => {
     });
   }
   return (
-    <section className="flex flex-col items-center space-y-5">
-      <h3 className="font-bold text-2xl">Registre-se</h3>
+    <section className="flex flex-col items-center space-y-5 h-6/6 mt-16">
+      <h3 className="font-bold text-3xl">Registre-se</h3>
       <form
         className="flex flex-col space-y-5 items-center"
         onSubmit={handleSubmit(onHandleSubmit)}
       >
         <div className="flex flex-col">
-          <label htmlFor="Nome" className="text-black">Nome Completo</label>
-          <input id="Nome" {...register("name")} />
+          <label htmlFor="Nome" className="text-lg">
+            Nome Completo
+          </label>
+          <input className="input" id="Nome" {...register("name")} />
           {errors.name && <span className="error">{errors.name.message}</span>}
         </div>
         <div className="flex flex-col">
-          <label htmlFor="Email" className="text-black">Email</label>
-          <input id="Email" {...register("email")} />
+          <label htmlFor="Email" className="text-lg">
+            Email
+          </label>
+          <input className="input" id="Email" {...register("email")} />
           {errors.email && (
             <span className="error">{errors.email.message}</span>
           )}
         </div>
         <div className="flex flex-col">
-          <label htmlFor="Telefones" className="text-black">Telefone</label>
-          <input id="Telefones" {...register("telefone")} />
+          <label htmlFor="Telefones" className="text-lg">
+            Telefone
+          </label>
+          <input className="input" id="Telefones" {...register("telefone")} />
           {errors.telefone && (
             <span className="error">{errors.telefone.message}</span>
           )}
         </div>
         <div className="flex flex-col">
-          <label htmlFor="Password" className="text-black">Password</label>
-          <input id="Password" {...register("password")} />
+          <label htmlFor="Password" className="text-lg">
+            Password
+          </label>
+          <input className="input" id="Password" {...register("password")} />
           {errors.password && (
             <span className="error">{errors.password.message}</span>
           )}
         </div>
-        <button className="w-44 bg-red-300 hover:bg-red-400 text-black p-1 rounded-lg font-bold border border-black">Registro</button>
+        <button className="w-44 bg-blue-400 hover:bg-blue-500 text-black p-1 rounded-lg font-bold border border-black">
+          Registro
+        </button>
       </form>{" "}
     </section>
   );

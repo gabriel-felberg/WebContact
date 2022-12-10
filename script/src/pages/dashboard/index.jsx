@@ -12,6 +12,7 @@ const Home = () => {
   const [user, setUser] = useState([]);
   const [modal, setModal] = useState(false);
   const [type, setType] = useState({});
+  const [erroData, setErroData] = useState()
 
   useEffect(() => {
     AxiosRender({
@@ -23,40 +24,56 @@ const Home = () => {
     });
   }, [type]);
 
-  function AxiosRender({ method, url, data = {}, addState = console.log , message = "Tudo certo"}) {
+  function AxiosRender({
+    method,
+    url,
+    data = {},
+    addState = console.log,
+    message = "Tudo certo",
+  }) {
+
     if (method === "get" || method === "post") {
+      console.log("public");
       api({ method: method, url: url, data: data })
         .then((res) => {
           addState(res.data);
-          console.log(method, url);
-          if(method !== "get" && url !== `http://localhost:3001/user/${JSON.parse(localStorage.getItem("@userId"))}`)
-          toast.success(message, {
-            position: "top-right",
-            autoClose: 2500,
-          });
+          if (
+            method !== "get" &&
+            url !==
+              `http://localhost:3001/user/${JSON.parse(
+                localStorage.getItem("@userId")
+              )}`
+          )
+            toast.success(message, {
+              position: "top-right",
+              autoClose: 2500,
+            });
         })
-        .catch((err) =>
+        .catch((err) => {
           toast.error(`${err.response.data.message}`, {
             position: "top-right",
             autoClose: 2500,
-          })
-        );
+          });
+          setErroData( err.response.data.message);
+        });
     } else {
       apiPrivate({ method: method, url: url, data: data })
         .then((res) => {
           addState(res.data);
           setType({});
         })
-        .catch((err) =>
+        .catch((err) => {
           toast.error(`${err.response.data.message}`, {
             position: "top-right",
             autoClose: 2500,
-          })
-        );
+          });
+          setErroData(err.response.data.message);
+        });
     }
+    return erroData
   }
 
-  function OpenAndCloseModal(obj) {
+  function OpenAndCloseModal(obj = {}) {
     setModal(!modal);
     setType(obj);
   }
