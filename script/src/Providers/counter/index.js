@@ -5,7 +5,7 @@ export const CounterContext = createContext([]);
 export const CounterProvider = ({ children }) => {
   const [ response, setResponse ] = useState([]);
   const [ token, setToken ] = useState({});
-
+  
   function Transform(string) {
     let arr = [];
     string

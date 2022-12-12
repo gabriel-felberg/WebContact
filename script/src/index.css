@@ -19,13 +19,16 @@
 
   }
   .error{
-    @apply pl-2 bg-red-500 border-2 rounded-lg 
+    @apply pl-2 bg-red-500 rounded-lg 
   }
-  .clsss {
-    @apply  flex flex-col items-center space-y-5
+
+  .input{
+    @apply rounded-lg pl-1 h-7 border-blue-600 border text-black
   }
-  .ba{
-    background-color: aqua;
-    
+  .image{
+    background-image: url("img/genio.png");
+  }
+  .gradient{
+    background: linear-gradient(-61deg,black, #250080, #000780, #6600ff);
   }
 }
