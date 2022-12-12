@@ -3,15 +3,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Contact } from "./contact.entity";
 import { Email } from "./email.entity";
-import { Telefone } from "./telefone.entity";
+import { Telephone } from "./telephone.entity";
 
 @Entity("users")
 class User {
@@ -33,12 +30,12 @@ class User {
   })
   email: Email[];
 
-  @OneToMany(() => Telefone, (telefone) => telefone.telefoneId, {
+  @OneToMany(() => Telephone, (telephone) => telephone.telephoneId, {
     eager: true,
   })
-  telefone: Telefone[];
+  telephone: Telephone[];
 
-  @OneToMany(() => Contact, (user_id) => user_id.user_id, { eager: true })
+  @OneToMany(() => Contact, (user_id) => user_id.user_id, { eager: true, onDelete:"CASCADE" })
   list_contacts: Contact[];
 }
 

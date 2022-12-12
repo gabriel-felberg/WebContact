@@ -1,19 +1,19 @@
 import AppDataSource from "../../data-source";
 import { Contact } from "../../entities/contact.entity";
 import { Email } from "../../entities/email.entity";
-import { Telefone } from "../../entities/telefone.entity";
+import { Telephone } from "../../entities/telephone.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/app.error";
 import { IContactId, IUserContact } from "../../interfaces/contacts";
 
 export const createContactServer = async (
-  { name, email, telefone }: IUserContact,
+  { name, email, telephone }: IUserContact,
   { id }: IContactId
 ) => {
   const userRepository = AppDataSource.getRepository(User);
   const contactRepository = AppDataSource.getRepository(Contact);
   const emailRepository = AppDataSource.getRepository(Email);
-  const telefoneRepository = AppDataSource.getRepository(Telefone);
+  const telephoneRepository = AppDataSource.getRepository(Telephone);
 
   const user = await userRepository.findOneBy({ id: id });
 
@@ -21,13 +21,13 @@ export const createContactServer = async (
     throw new AppError("user does not already exists");
   }
 
-  if (typeof email !== typeof telefone) {
-    throw new AppError("The field email and telefone must be an array");
+  if (typeof email !== typeof telephone) {
+    throw new AppError("The field email and telephone must be an array");
   }
 
-  //list and save the email and telefone
+  //list and save the email and telephone
   let listEmail: Array<object> = [];
-  let listTelefone: Array<object> = [];
+  let listTelephone: Array<object> = [];
 
   for (let i = 0; i < email.length; i++) {
     if (
@@ -37,25 +37,27 @@ export const createContactServer = async (
       throw new AppError("email already exists");
     }
   }
-  for (let i = 0; i < telefone.length; i++) {
+  for (let i = 0; i < telephone.length; i++) {
     if (
-      (await telefoneRepository.findOneBy({ telefone: telefone[i] })) &&
-      telefone[i] !== ""
+      (await telephoneRepository.findOneBy({ telephone: telephone[i] })) &&
+      telephone[i] !== ""
     ) {
-      throw new AppError("telefone already exists");
+      throw new AppError("telephone already exists");
     }
   }
   // const arr = email.map(e => await emailRepository.save({ email: e }))
   for (let i = 0; i < email.length; i++) {
     listEmail.push(await emailRepository.save({ email: email[i] }));
   }
-  for (let i = 0; i < telefone.length; i++) {
-    listTelefone.push(await telefoneRepository.save({ telefone: telefone[i] }));
+  for (let i = 0; i < telephone.length; i++) {
+    listTelephone.push(
+      await telephoneRepository.save({ telephone: telephone[i] })
+    );
   }
 
   const contact = await contactRepository.save({
     name,
-    telefoneContact: listTelefone,
+    telephoneContact: listTelephone,
     emailContact: listEmail,
     user_id: user,
   });

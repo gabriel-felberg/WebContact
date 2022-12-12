@@ -1,14 +1,12 @@
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Email } from "./email.entity";
-import { Telefone } from "./telefone.entity";
+import { Telephone } from "./telephone.entity";
 import { User } from "./user.entity";
 
 @Entity("contacts")
@@ -22,10 +20,10 @@ class Contact {
   @OneToMany(() => Email, (email) => email.emailContact, { eager: true })
   emailContact: Email[];
 
-  @OneToMany(() => Telefone, (telefone) => telefone.telefoneContact, {
+  @OneToMany(() => Telephone, (telefone) => telefone.telephoneContact, {
     eager: true,
   })
-  telefoneContact: Telefone[];
+  telephoneContact: Telephone[];
 
   @ManyToOne(() => User, { onDelete: "CASCADE" })
   user_id: User;
