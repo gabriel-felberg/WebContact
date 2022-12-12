@@ -1,0 +1,34 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@layer components {
+  ::-webkit-scrollbar-track {
+    background-color: rgb(243 244 246)
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgb(243 244 246)
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(192, 190, 190);
+    border-radius: 15px;
+
+  }
+  .error{
+    @apply pl-2 bg-red-500 rounded-lg 
+  }
+
+  .input{
+    @apply rounded-lg pl-1 h-7 border-blue-600 border text-black
+  }
+  .image{
+    background-image: url("img/genio.png");
+  }
+  .gradient{
+    background: linear-gradient(-61deg,black, #250080, #000780, #6600ff);
+  }
+}
