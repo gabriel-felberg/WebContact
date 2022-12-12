@@ -1,0 +1,31 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@layer components {
+  ::-webkit-scrollbar-track {
+    background-color: rgb(243 244 246)
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    background-color: rgb(243 244 246)
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(192, 190, 190);
+    border-radius: 15px;
+
+  }
+  .error{
+    @apply pl-2 bg-red-500 border-2 rounded-lg 
+  }
+  .clsss {
+    @apply  flex flex-col items-center space-y-5
+  }
+  .ba{
+    background-color: aqua;
+    
+  }
+}
