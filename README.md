@@ -3,7 +3,7 @@
 O projeto tem como proposta salvar contatos pessoais do cadastrado no site
 
 ## Principais tecnologias utilizadas
-```json
+```text
 1.react
 2.javascript
 3.docker
