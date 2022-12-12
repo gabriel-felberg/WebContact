@@ -33,7 +33,7 @@ const Home = () => {
   }) {
 
     if (method === "get" || method === "post") {
-      console.log("public");
+      
       api({ method: method, url: url, data: data })
         .then((res) => {
           addState(res.data);

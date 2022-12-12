@@ -23,15 +23,15 @@ export const ModalAdd = ({ OpenAndCloseModal, AxiosRender, setType }) => {
       .email("Digite um email válido"),
     telephone1: yup
       .string()
-      .min(9, "Ensira um telefone maior")
-      .max(14, "Ensira um telefone menor")
-      .required("Digite seu telefone"),
+      .min(9, "Ensira um telephone maior")
+      .max(14, "Ensira um telephone menor")
+      .required("Digite seu telephone"),
 
     telephone2: yup
       .string()
-      .min(9, "Ensira um telefone maior")
-      .max(14, "Ensira um telefone menor")
-      .required("Digite seu segundo telefone"),
+      .min(9, "Ensira um telephone maior")
+      .max(14, "Ensira um telephone menor")
+      .required("Digite seu segundo telephone"),
   });
   const {
     register,
@@ -44,7 +44,7 @@ export const ModalAdd = ({ OpenAndCloseModal, AxiosRender, setType }) => {
     data = {
       name: data.name,
       email: [data.email1, data.email2],
-      telefone: [data.telephone1, data.telephone2],
+      telephone: [data.telephone1, data.telephone2],
     };
 
     const response = AxiosRender({
@@ -101,19 +101,19 @@ export const ModalAdd = ({ OpenAndCloseModal, AxiosRender, setType }) => {
             )}
           </div>
           <div className="flex flex-col gap-3">
-            <label htmlFor="Telefone1">Primeiro Telefone</label>
+            <label htmlFor="Telephone1">Primeiro Telephone</label>
             <input
               {...register("telephone1")}
-              id="Telefone1"
+              id="Telephone1"
               className="w-56 h-8 pl-2 border-black border rounded-lg"
             />
             {errors?.telephone1 && (
               <span className="error">{errors.telephone1.message}</span>
             )}
-            <label htmlFor="Telefone2">Segundo Telefone</label>
+            <label htmlFor="Telephone2">Segundo Telephone</label>
             <input
               {...register("telephone2")}
-              id="Telefone2"
+              id="Telephone2"
               className="w-56 h-8 pl-2 border-black border rounded-lg"
             />
             {errors?.telephone2 && (

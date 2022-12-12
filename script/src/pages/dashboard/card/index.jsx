@@ -17,10 +17,10 @@ export const Card = ({ data, OpenAndCloseModal, DeleteContact }) => {
         </div>
         <div className="w-40">
           <h3>
-            <b>Telefones</b>
+            <b>Telephones</b>
           </h3>
-          {data.telefoneContact.map((e) => (
-            <p>{e.telefone}</p>
+          {data.telephoneContact.map((e) => (
+            <p>{e.telephone}</p>
           ))}
         </div>
       </div>

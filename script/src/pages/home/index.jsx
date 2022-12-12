@@ -42,7 +42,7 @@ export const LoginAndRegister = () => {
           });
         })
         .catch(() => {
-          toast.error("Email ou telefone já cadastrados", {
+          toast.error("Email ou telephone já cadastrados", {
             position: "top-right",
             autoClose: 2500,
           });
@@ -64,7 +64,7 @@ export const LoginAndRegister = () => {
         <div className="flex flex-col justify-center h-4/6 ">
           {home ? (
             <section className="flex flex-col justify-around h-96">
-              <Login setForm={setForm}/>
+              <Login setForm={setForm} />
               <div className="flex flex-col mt-32">
                 <h3 className="text-lg ">Não possui conta?</h3>
                 <button

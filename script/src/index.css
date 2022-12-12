@@ -23,7 +23,7 @@
   }
 
   .input{
-    @apply rounded-lg pl-1 h-7 border-blue-600 border
+    @apply rounded-lg pl-1 h-7 border-blue-600 border text-black
   }
   .image{
     background-image: url("img/genio.png");

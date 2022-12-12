@@ -20,9 +20,9 @@ export const ModalEdit = ({
       .string()
       .max(60, "Ensira um email menor")
       .email("Digite um email válido"),
-    telephone1: yup.string().max(14, "Ensira um telefone menor"),
+    telephone1: yup.string().max(14, "Ensira um telephone menor"),
 
-    telephone2: yup.string().max(14, "Ensira um telefone menor"),
+    telephone2: yup.string().max(14, "Ensira um telephone menor"),
   });
   const {
     register,
@@ -35,7 +35,7 @@ export const ModalEdit = ({
     data = {
       name: data.name,
       email: [data.email1, data.email2],
-      telefone: [data.telephone1, data.telephone2],
+      telephone: [data.telephone1, data.telephone2],
     };
 
     const response = AxiosRender({
@@ -43,9 +43,9 @@ export const ModalEdit = ({
       url: `http://localhost:3001/contact/${type.id}`,
       data,
     });
-    console.log(response );
-    console.log(typeof response)
-    if (response !== undefined || typeof response !== String ) {
+    
+    
+    if (response !== undefined || typeof response !== "string") {
       OpenAndCloseModal();
     }
   }
@@ -90,19 +90,19 @@ export const ModalEdit = ({
             )}
           </div>
           <div className="flex flex-col gap-3">
-            <label htmlFor="Telefone1">Primeiro Telefone</label>
+            <label htmlFor="Telephone1">Primeiro Telephone</label>
             <input
               {...register("telephone1")}
-              id="Telefone1"
+              id="Telephone1"
               className="w-56 h-8 pl-2 border-black border rounded-lg"
             />
             {errors?.telephone1 && (
               <span className="error">{errors.telephone1.message}</span>
             )}
-            <label htmlFor="Telefone2">Segundo Telefone</label>
+            <label htmlFor="Telephone2">Segundo Telephone</label>
             <input
               {...register("telephone2")}
-              id="Telefone2"
+              id="Telephone2"
               className="w-56 h-8 pl-2 border-black border rounded-lg"
             />
             {errors?.telephone2 && (

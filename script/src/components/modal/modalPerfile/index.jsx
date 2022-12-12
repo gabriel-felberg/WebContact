@@ -4,15 +4,14 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
-export const ModalPerfile = ({ OpenAndCloseModal, AxiosRender, type, user }) => {
+export const ModalPerfile = ({
+  OpenAndCloseModal,
+  AxiosRender,
+}) => {
   const schemaForm = yup.object().shape({
-    name: yup
-      .string()
-      .max(30, "Somente dois sobrenomes"),
+    name: yup.string().max(30, "Somente dois sobrenomes"),
 
-    password: yup
-      .string()
-      .max(10, "Ensira uma senha menor"),
+    password: yup.string().max(10, "Ensira uma senha menor"),
 
     email1: yup
       .string()
@@ -23,14 +22,9 @@ export const ModalPerfile = ({ OpenAndCloseModal, AxiosRender, type, user }) => 
       .max(60, "Ensira um email menor")
       .email("Digite um email válido"),
 
-    telephone1: yup
-      .string()
-      .max(14, "Ensira um telefone menor"),
+    telephone1: yup.string().max(14, "Ensira um telephone menor"),
 
-    telephone2: yup
-      .string()
-      .max(14, "Ensira um telefone menor"),
-      
+    telephone2: yup.string().max(14, "Ensira um telephone menor"),
   });
   const {
     register,
@@ -43,32 +37,30 @@ export const ModalPerfile = ({ OpenAndCloseModal, AxiosRender, type, user }) => 
     data = {
       name: data.name,
       email: [data.email1, data.email2],
-      telefone: [data.telephone1, data.telephone2],
-      password: data.password
+      telephone: [data.telephone1, data.telephone2],
+      password: data.password,
     };
     AxiosRender({
       method: "patch",
-      url: `http://localhost:3001/user/${JSON.parse(localStorage.getItem("@userId"))}`,
+      url: `http://localhost:3001/user/${JSON.parse(
+        localStorage.getItem("@userId")
+      )}`,
       data,
     });
-    OpenAndCloseModal()
+    OpenAndCloseModal();
   }
+  const navigate = useNavigate();
   function DeleteUser() {
-    const navigate = useNavigate()
-    localStorage.removeItem("@token")
-    localStorage.removeItem("@userId")
-    const response = AxiosRender({
+    AxiosRender({
       method: "delete",
-      url: `http://localhost:3001/user/${JSON.parse(localStorage.getItem("@userId"))}`,
-    })
-    if (response === undefined) {
-      return;
-    } else if (typeof response === "string") {
-      return;
-    } else {
-      OpenAndCloseModal();
-    }
-    navigate("/")
+      url: `http://localhost:3001/user/${JSON.parse(
+        localStorage.getItem("@userId")
+        )}`,
+      });
+    localStorage.removeItem("@token");
+    localStorage.removeItem("@userId");
+    navigate("/");
+    OpenAndCloseModal();
   }
   return (
     <section>
@@ -126,19 +118,19 @@ export const ModalPerfile = ({ OpenAndCloseModal, AxiosRender, type, user }) => 
             {errors?.password && (
               <span className="error">{errors.password.message}</span>
             )}
-            <label htmlFor="Telefone1">Primeiro Telefone</label>
+            <label htmlFor="Telephone1">Primeiro Telephone</label>
             <input
               {...register("telephone1")}
-              id="Telefone1"
+              id="Telephone1"
               className="w-56 h-8 pl-2 border-black border rounded-lg"
             />
             {errors?.telephone1 && (
               <span className="error">{errors.telephone1.message}</span>
             )}
-            <label htmlFor="Telefone2">Segundo Telefone</label>
+            <label htmlFor="Telephone2">Segundo Telephone</label>
             <input
               {...register("telephone2")}
-              id="Telefone2"
+              id="Telephone2"
               className="w-56 h-8 pl-2 border-black border rounded-lg"
             />
             {errors?.telephone2 && (

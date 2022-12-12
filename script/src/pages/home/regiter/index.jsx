@@ -12,7 +12,7 @@ export const Register = ({ setForm }) => {
       .min(6, "Digite seu nome completo")
       .required("Digite seu nome completo"),
     email: yup.string().required("Digite seus e-mails"),
-    telefone: yup.string().required("Digite seus telefones"),
+    telephone: yup.string().required("Digite seus telephones"),
     password: yup
       .string()
       .min(6, "A senha deve ser maior")
@@ -28,7 +28,7 @@ export const Register = ({ setForm }) => {
   function onHandleSubmit(formRegister) {
     setForm({
       name: formRegister.name,
-      telefone: Transform(formRegister.telefone),
+      telephone: Transform(formRegister.telephone),
       email: Transform(formRegister.email),
       password: formRegister.password,
       type: "Register",
@@ -58,12 +58,12 @@ export const Register = ({ setForm }) => {
           )}
         </div>
         <div className="flex flex-col">
-          <label htmlFor="Telefones" className="text-lg">
-            Telefone
+          <label htmlFor="Telephones" className="text-lg">
+            Telephone
           </label>
-          <input className="input" id="Telefones" {...register("telefone")} />
-          {errors.telefone && (
-            <span className="error">{errors.telefone.message}</span>
+          <input className="input" id="Telephones" {...register("telephone")} />
+          {errors.telephone && (
+            <span className="error">{errors.telephone.message}</span>
           )}
         </div>
         <div className="flex flex-col">
