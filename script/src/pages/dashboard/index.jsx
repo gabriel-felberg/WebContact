@@ -114,7 +114,7 @@ const Home = () => {
   return (
     <section>
       <Header OpenAndCloseModal={OpenAndCloseModal} />
-      <section className="flex flex-col items-center mt-5 font-bold text-2xl">
+      <section className="flex flex-col items-center mt-5 font-bold text-2xl ">
         <h1>Olá {user.name}</h1>
         <h2>Seja bem vindo</h2>
       </section>
