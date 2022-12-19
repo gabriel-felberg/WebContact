@@ -8,7 +8,7 @@ export const apiPrivate = axios.create({
   baseURL: "http://localhost:3001/",
   headers: {
     Authorization: `Bearer ${JSON.parse(
-      localStorage.getItem("@token")
+      JSON.stringify(localStorage.getItem("@token"))
     )}`,
   },
 });

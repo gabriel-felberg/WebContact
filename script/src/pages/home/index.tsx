@@ -1,15 +1,22 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Login } from "./login";
 import { Register } from "./regiter";
+export interface IForm {
+  name?: string
+  email: Array<string> | string
+  password: string
+  telephone?: Array<string> | string
+  type?: "Login" | "Register"
+}
 
 export const LoginAndRegister = () => {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState<IForm>({} as IForm);
   const [home, setHome] = useState(true);
   const navigate = useNavigate();
-  function ResponseOfAPI(form) {
+  function ResponseOfAPI(form:IForm) {
     if (form.type === "Login") {
       delete form.type;
       axios
@@ -51,7 +58,7 @@ export const LoginAndRegister = () => {
   }
 
   useEffect(() => {
-    if (form !== {}) {
+    if (form.type) {
       ResponseOfAPI(form);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

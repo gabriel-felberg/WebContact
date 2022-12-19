@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { IObj } from "../../pages/dashboard";
 
-export const Header = ({ OpenAndCloseModal }) => {
+interface IHeaderProp {
+  OpenAndCloseModal({type, id}:IObj): void 
+}
+
+export const Header = ({ OpenAndCloseModal }:IHeaderProp) => {
   const navigate = useNavigate();
   function Logout() {
     localStorage.removeItem("@token");

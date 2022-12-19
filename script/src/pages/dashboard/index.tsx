@@ -1,39 +1,81 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { Header } from "../../components/header";
-import Modal from "react-modal";
+import Modal, { Styles } from "react-modal";
 import { ModalEdit } from "../../components/modal/modalEdit";
 import { ModalPerfile } from "../../components/modal/modalPerfile";
 import { ModalAdd } from "../../components/modal/modalAdd";
 import { api, apiPrivate } from "../../services/api";
 import { Card } from "./card";
 import { toast } from "react-toastify";
+import { IForm } from "../home";
 
+interface IAxiosUser extends Omit<IForm, "type"> {
+  list_contacts?: IContact[]
+}
+export interface IContact {
+  id: string;
+  name: string;
+  emailContact: Array<IEmail>;
+  telephoneContact: ITelephone[];
+}
+export interface ITelephone {
+  id: string;
+  telefone: Array<string> | string;
+}
+export interface IEmail {
+  id: string;
+  email: Array<string> | string;
+}
+export interface IObj  {
+  type?: string;
+  id?: string;
+}
+// interface Itype {
+//   type: "Perfile" | "Edit" | "Add" | string;
+// }
+export interface IAxiosRender {
+  method: string;
+  url: string;
+  data?: object;
+  addState? (res:Object): void;
+  message?: string;
+}
 const Home = () => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState<IAxiosUser>({} as IAxiosUser);
   const [modal, setModal] = useState(false);
-  const [type, setType] = useState({});
-  const [erroData, setErroData] = useState()
+  const [type, setType] = useState("");
+  const [axiosId, setAxiosId] = useState("");
+  const [erroData, setErroData] = useState("");
 
   useEffect(() => {
     AxiosRender({
       method: "get",
       url: `http://localhost:3001/user/${JSON.parse(
-        localStorage.getItem("@userId")
+        JSON.stringify(localStorage.getItem("@userId"))
       )}`,
       addState: setUser,
     });
   }, [type]);
 
+  // interface IAxiosData {
+  //   data:IAxiosUser
+  // }
+  // interface IAxiosResponse {
+  //   data: IAxiosUser;
+  //   status: number;
+  //   statusText: string;
+  //   headers: any;
+  //   config: AxiosRequestConfig;
+  // }
   function AxiosRender({
     method,
     url,
     data = {},
     addState = console.log,
     message = "Tudo certo",
-  }) {
-
+  }: IAxiosRender) {
     if (method === "get" || method === "post") {
-      
       api({ method: method, url: url, data: data })
         .then((res) => {
           addState(res.data);
@@ -41,7 +83,7 @@ const Home = () => {
             method !== "get" &&
             url !==
               `http://localhost:3001/user/${JSON.parse(
-                localStorage.getItem("@userId")
+                JSON.stringify(localStorage.getItem("@userId"))
               )}`
           )
             toast.success(message, {
@@ -54,13 +96,13 @@ const Home = () => {
             position: "top-right",
             autoClose: 2500,
           });
-          setErroData( err.response.data.message);
+          setErroData(err.response.data.message);
         });
     } else {
       apiPrivate({ method: method, url: url, data: data })
         .then((res) => {
           addState(res.data);
-          setType({});
+          setType("");
         })
         .catch((err) => {
           toast.error(`${err.response.data.message}`, {
@@ -70,15 +112,15 @@ const Home = () => {
           setErroData(err.response.data.message);
         });
     }
-    return erroData
+    return erroData;
   }
-
-  function OpenAndCloseModal(obj = {}) {
+  function OpenAndCloseModal({ type = "", id = "" }: IObj): void {
     setModal(!modal);
-    setType(obj);
+    setType(type);
+    setAxiosId(id);
   }
 
-  const customStyles = {
+  const customStyles:Styles = {
     overlay: {
       position: "fixed",
       top: 0,
@@ -104,12 +146,12 @@ const Home = () => {
       transform: "translate(-50%, -50%)",
     },
   };
-  function DeleteContact(event) {
+  function DeleteContact(event: any) {
     AxiosRender({
       method: "delete",
       url: `http://localhost:3001/contact/${event.target.id}`,
     });
-    setType({});
+    setType("");
   }
   return (
     <section>
@@ -152,25 +194,21 @@ const Home = () => {
             onRequestClose={OpenAndCloseModal}
             style={customStyles}
           >
-            {type.type === "Perfile" ? (
+            {type === "Perfile" ? (
               <ModalPerfile
                 OpenAndCloseModal={OpenAndCloseModal}
                 AxiosRender={AxiosRender}
-                user={user}
-                type={type}
               />
-            ) : type.type === "Edit" ? (
+            ) : type === "Edit" ? (
               <ModalEdit
                 OpenAndCloseModal={OpenAndCloseModal}
                 AxiosRender={AxiosRender}
-                type={type}
-                setType={setType}
+                axiosId={axiosId}
               />
-            ) : type.type === "Add" ? (
+            ) : type === "Add" ? (
               <ModalAdd
                 OpenAndCloseModal={OpenAndCloseModal}
                 AxiosRender={AxiosRender}
-                setType={setType}
               />
             ) : null}
           </Modal>

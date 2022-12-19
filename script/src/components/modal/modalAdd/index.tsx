@@ -1,9 +1,25 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { IAxiosRender, IObj } from "../../../pages/dashboard";
 
-export const ModalAdd = ({ OpenAndCloseModal, AxiosRender, setType }) => {
+export interface IModalAddProps {
+  OpenAndCloseModal({id,type}: IObj): void;
+  AxiosRender({ method, url, data }: IAxiosRender): void;
+}
+
+export interface IAddUser {
+  name: string;
+  email1: String;
+  email2: String;
+  telephone1: String;
+  telephone2: String;
+}
+
+export const ModalAdd = ({
+  OpenAndCloseModal,
+  AxiosRender,
+}: IModalAddProps) => {
   const schemaForm = yup.object().shape({
     name: yup
       .string()
@@ -37,11 +53,11 @@ export const ModalAdd = ({ OpenAndCloseModal, AxiosRender, setType }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<IAddUser>({
     resolver: yupResolver(schemaForm),
   });
-  function onHandleSubmit(data) {
-    data = {
+  function onHandleSubmit(data:IAddUser) {
+    const DataRequest = {
       name: data.name,
       email: [data.email1, data.email2],
       telephone: [data.telephone1, data.telephone2],
@@ -50,14 +66,14 @@ export const ModalAdd = ({ OpenAndCloseModal, AxiosRender, setType }) => {
     const response = AxiosRender({
       method: "POST",
       url: `http://localhost:3001/contact/`,
-      data,
+      data:DataRequest,
     });
     if (response === undefined) {
       return;
     } else if (typeof response === "string") {
       return;
     } else {
-      OpenAndCloseModal();
+      OpenAndCloseModal({});
     }
   }
 

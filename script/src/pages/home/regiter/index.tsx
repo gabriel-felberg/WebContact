@@ -4,7 +4,18 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { CounterContext } from "../../../Providers/counter";
 
-export const Register = ({ setForm }) => {
+export interface IFormProps {
+  setForm(form:object):void
+}
+interface IformRegister{
+  name: string,
+  telephone: string,
+  email: string,
+  password: string,
+  type: "Register",
+}
+
+export const Register = ({ setForm }:IFormProps) => {
   const { Transform } = useContext(CounterContext);
   const schemaForm = yup.object().shape({
     name: yup
@@ -22,10 +33,10 @@ export const Register = ({ setForm }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<IformRegister>({
     resolver: yupResolver(schemaForm),
   });
-  function onHandleSubmit(formRegister) {
+  function onHandleSubmit(formRegister:IformRegister):void {
     setForm({
       name: formRegister.name,
       telephone: Transform(formRegister.telephone),

@@ -1,9 +1,16 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { IFormProps } from "../regiter";
 
-export const Login = ({ setForm }) => {
+
+interface IformLogin{
+  email: string,
+  password: string,
+  type: "Login",
+}
+
+export const Login = ({ setForm }:IFormProps) => {
   const schemaForm = yup.object().shape({
     email: yup
       .string()
@@ -15,10 +22,10 @@ export const Login = ({ setForm }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<IformLogin>({
     resolver: yupResolver(schemaForm),
   });
-  function onHandleSubmit(formLogin) {
+  function onHandleSubmit(formLogin:IformLogin):void {
     setForm({ ...formLogin, type: "Login" });
   }
   return (
